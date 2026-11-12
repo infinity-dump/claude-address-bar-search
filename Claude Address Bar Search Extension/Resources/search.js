@@ -4,7 +4,8 @@ function safariSearchQuery(request) {
 
     const source = new URL(request.url);
     if (source.origin !== "https://www.google.com" || source.pathname !== "/search"
-        || source.searchParams.get("client") !== "safari")
+        || source.searchParams.get("client") !== "safari"
+        || source.searchParams.get("udm") === "2" || source.searchParams.get("tbm") === "isch")
         return null;
 
     const headers = new Map((request.requestHeaders ?? []).map(header => [
@@ -20,6 +21,27 @@ function safariSearchQuery(request) {
 
     const query = source.searchParams.get("q");
     return query?.trim() ? query : null;
+}
+
+function imageSearchQuery(query) {
+    const command = /^(?:please\s+)?(?:image\s+search|(?:search|find|show(?:\s+me)?|look\s+for)\s+(?:for\s+)?(?:images?|pictures?|photos?))(?=$|[\s:])/i;
+    const text = query.trim();
+    const match = command.exec(text);
+    if (!match)
+        return null;
+
+    return text.slice(match[0].length).trimStart()
+        .replace(/^(?::\s*|(?:of|for)\s+)+/i, "").trim();
+}
+
+function googleImagesDestination(query) {
+    if (!query)
+        return new URL("https://www.google.com/imghp");
+
+    const destination = new URL("https://www.google.com/search");
+    destination.searchParams.set("q", query);
+    destination.searchParams.set("udm", "2");
+    return destination;
 }
 
 function claudeSearchDestination(query, token) {

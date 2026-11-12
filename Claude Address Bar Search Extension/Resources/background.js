@@ -6,6 +6,14 @@ browser.webRequest.onBeforeSendHeaders.addListener(request => {
     if (!query)
         return;
 
+    const imageQuery = imageSearchQuery(query);
+    if (imageQuery !== null) {
+        pending.delete(request.tabId);
+        browser.tabs.update(request.tabId, { url: googleImagesDestination(imageQuery).href })
+            .catch(error => console.error("Could not open Google Images", error));
+        return;
+    }
+
     const token = crypto.randomUUID();
     const destination = claudeSearchDestination(query, token);
     pending.set(request.tabId, { token, url: destination.href, expires: Date.now() + lifetime });

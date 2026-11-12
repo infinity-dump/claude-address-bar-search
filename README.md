@@ -2,6 +2,12 @@
 
 A macOS Safari extension that sends address-bar searches to Claude. Press Return once to open a new chat, select Sonnet, and submit the query as typed. Website addresses open normally.
 
+## Search for images
+
+Click the extension’s Safari toolbar button, enter a query, and click **Search images** to open Google Images in a new tab.
+
+From the address bar, try `search images of vintage trains`, `image search: alpine cabins`, or `find photos of Saturn`. Enter `image search` on its own to open the Google Images homepage.
+
 ## Build and enable
 
 1. Open `Claude Address Bar Search.xcodeproj` in Xcode.

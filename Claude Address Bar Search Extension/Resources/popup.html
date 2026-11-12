@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Images</title>
+<style>
+    :root { color-scheme: light dark; font: 14px system-ui, sans-serif; }
+    body { width: 270px; margin: 0; padding: 14px; }
+    form { display: grid; gap: 9px; }
+    label { font-weight: 600; }
+    input, button { box-sizing: border-box; font: inherit; padding: 7px; }
+    button { cursor: pointer; }
+    p { margin: 0; }
+</style>
+<form>
+    <label for="query">Google Images</label>
+    <input id="query" type="search" placeholder="What are you looking for?" autofocus>
+    <button type="submit">Search images</button>
+    <p role="alert" hidden></p>
+</form>
+<script src="search.js"></script>
+<script src="popup.js"></script>
+</html>

@@ -65,6 +65,8 @@
             { "path": "Resources/claude.js", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
             { "path": "Resources/background.js", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
             { "path": "Resources/manifest.json", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
+            { "path": "Resources/popup.html", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
+            { "path": "Resources/popup.js", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
             { "path": "Resources/search.js", "target-membership": [ "Claude Address Bar Search Extension/resources" ] },
           ],
         },
