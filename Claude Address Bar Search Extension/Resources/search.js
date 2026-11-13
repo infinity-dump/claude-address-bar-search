@@ -46,7 +46,8 @@ function googleImagesDestination(query) {
 
 function claudeSearchDestination(query, token) {
     const destination = new URL("https://claude.ai/new");
-    destination.searchParams.set("q", query);
+    const instructions = "Treat this as a Google-style search query. Search the web, infer the likely intent, and lead with a concise answer or the most relevant results. Include useful details and direct links when they help.";
+    destination.searchParams.set("q", instructions + "\n\nSearch query:\n" + query);
     destination.hash = "safari-search=" + token;
     return destination;
 }

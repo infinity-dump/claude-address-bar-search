@@ -1,6 +1,6 @@
 # Claude Address Bar Search
 
-A macOS Safari extension that sends address-bar searches to Claude. Press Return once to open a new chat, select Sonnet, and submit the query as typed. Website addresses open normally.
+A macOS Safari extension that sends address-bar searches to Claude Haiku 5.5 at Low effort. Press Return once to open a new chat and ask Claude to treat your text as a Google-style web search, with concise results and useful links. Website addresses open normally.
 
 ## Search for images
 
@@ -16,6 +16,6 @@ From the address bar, try `search images of vintage trains`, `image search: alpi
 4. In Safari → Settings → Extensions, enable Claude Address Bar Search and grant site access to Google and Claude.
 5. Set Safari’s search engine to Google and sign in at claude.ai.
 
-The extension relies on Safari’s Google search requests and Claude’s model picker. Google may receive the query before the redirect. If the extension can’t confirm that Sonnet is selected, it leaves the query in the Claude composer for manual submission.
+The extension relies on Safari’s Google search requests and Claude’s model picker. Google may receive the query before the redirect. If the extension can’t confirm Haiku 5.5 at Low effort, it leaves the query in the Claude composer for manual submission.
 
 The signed local build is kept in `dist/`.

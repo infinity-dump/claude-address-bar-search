@@ -16,8 +16,10 @@
         observer.disconnect();
         clearTimeout(timeout);
     };
-    let modelPickerOpened = false;
-    let sonnetSelected = false;
+    const modelName = /^Haiku 5\.5(?:\s|$)/i;
+    let modelChosen = false;
+    let effortOpened = false;
+    let effortChosen = false;
 
     const submit = () => {
         if (location.pathname !== "/new") {
@@ -36,27 +38,47 @@
         if (!picker)
             return;
 
-        if (!/\bSonnet\b/i.test(picker.getAttribute("aria-label"))) {
-            if (!modelPickerOpened) {
-                modelPickerOpened = true;
-                if (picker.getAttribute("aria-expanded") !== "true")
-                    picker.click();
-                return;
-            }
+        const selection = picker.getAttribute("aria-label").slice("Model:".length).trim();
+        if (/^Haiku 5\.5 Low$/i.test(selection)) {
+            stop();
+            send.click();
+            return;
+        }
 
-            const menu = document.querySelector('[role="menu"][aria-label^="Model:"]')
-                ?? document.querySelector('[role="menu"]');
-            const sonnet = [...(menu?.querySelectorAll('[role="menuitemradio"], [role="menuitem"]') ?? [])]
-                .find(option => /^Sonnet\b/i.test(option.textContent.trim()));
-            if (sonnet && !sonnetSelected) {
-                sonnetSelected = true;
-                sonnet.click();
+        const haikuSelected = modelName.test(selection);
+        if (picker.getAttribute("aria-expanded") !== "true") {
+            // Model selection closes the menu. Open it again for effort if needed.
+            if (!(haikuSelected ? effortOpened : modelChosen))
+                picker.click();
+            return;
+        }
+
+        const options = [...document.querySelectorAll('[role="menuitemradio"]')];
+        if (!haikuSelected) {
+            const haiku = options.find(option => modelName.test(option.innerText.trim()));
+            if (haiku && !modelChosen) {
+                modelChosen = true;
+                haiku.click();
             }
             return;
         }
 
-        stop();
-        send.click();
+        const effort = [...document.querySelectorAll('[role="menuitem"]')]
+            .find(option => /^Effort\b/i.test(option.innerText.trim()));
+        if (!effort)
+            return;
+        if (!effortOpened) {
+            effortOpened = true;
+            if (effort.getAttribute("aria-expanded") !== "true")
+                effort.click();
+            return;
+        }
+
+        const low = options.find(option => /^Low(?:\s+Recommended)?$/i.test(option.innerText.trim()));
+        if (low && !effortChosen) {
+            effortChosen = true;
+            low.click();
+        }
     };
 
     const observer = new MutationObserver(submit);

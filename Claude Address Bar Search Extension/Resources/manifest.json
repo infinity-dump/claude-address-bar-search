@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Claude Address Bar Search",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Search with Claude or Google Images from Safari.",
   "action": {
     "default_title": "Search Google Images",
